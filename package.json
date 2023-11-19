@@ -1,0 +1,33 @@
+{
+  "name": "inventory-management-system",
+  "version": "1.0.0",
+  "description": "A simple inventory management system for tracking items.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HU-KAI-YANG/inventory-management-system.git"
+  },
+  "keywords": [
+    "inventory",
+    "management",
+    "express",
+    "mongodb"
+  ],
+  "author": "HU KAIYANG",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.13.8",
+    "ejs": "^3.1.6",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
+
+
