@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Inventory Management Home</title>
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,8 +51,28 @@
             font-size: 40px;
             margin-top: 0;
         }
+
+        .intro, .features, .auth-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 30px;
+        }
     </style>
 </head>
+<button id="toggleButton">Toggle Content</button>
+<div id="toggleContent" class="hidden">This content can be toggled.</div>
+
+<button id="showMoreButton">Show More</button>
+<div id="extraContent" style="display: none;">Extra content here.</div>
+
+<div id="animatedElement" class="animation-start-state">Hover over me!</div>
 <body>
     <header>
         <div class="container">
@@ -64,7 +85,31 @@
             </nav>
         </div>
     </header>
+
+    <section class="intro">
+        <div class="container">
+            <p>Welcome to our Inventory Management System. Here you can manage your inventory efficiently and effectively.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Explore Our Features</h2>
+            <p>Our system allows you to view and add inventory items, track item quantities, and more.</p>
+        </div>
+    </section>
+
+    <section class="auth-links">
+        <div class="container">
+            <a href="/login">Login</a> | <a href="/register">Register</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Inventory Management System. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="/js/script.js"></script>
 </body>
 </html>
-
-
