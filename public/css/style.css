@@ -1,0 +1,77 @@
+/* public/css/style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding-top: 30px;
+  min-height: 70px;
+  border-bottom: #e8491d 3px solid;
+}
+
+header a {
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+header li {
+  display: inline;
+  margin: 0 20px;
+}
+
+header a:hover {
+  color: #e8491d;
+}
+
+form {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+input[type="text"], input[type="password"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  width: 100%;
+  background: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+}
+
+button:hover {
+  background: #555;
+}
+
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+}
+
