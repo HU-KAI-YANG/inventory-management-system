@@ -1,36 +1,51 @@
-const express = require('express');
-const router = express.Router();
-const Inventory = require('../models/inventory'); // 引入刚才创建的Inventory模型
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-// 获取所有库存项
-router.get('/inventory', async (req, res) => {
-  try {
-    const inventoryItems = await Inventory.find();
-    res.render('inventory', { inventoryItems });
-  } catch (err) {
-    res.status(500).send('Error retrieving inventory items.');
-  }
-});
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
 
-// 显示添加库存项的表单
-router.get('/inventory/add', (req, res) => {
-  res.render('add');
-});
+        h1 {
+            background: #50b3a2;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
 
-// 处理添加库存项的表单提交
-router.post('/inventory/add', async (req, res) => {
-  try {
-    const newItem = new Inventory({
-      name: req.body.name,
-      quantity: req.body.quantity
-    });
-    await newItem.save();
-    res.redirect('/inventory');
-  } catch (err) {
-    res.status(500).send('Error saving the item.');
-  }
-});
+        ul {
+            list-style: none;
+            padding: 0;
+        }
 
-
-module.exports = router;
+        li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inventory List</h1>
+        <ul>
+            <% inventoryItems.forEach(function(item) { %>
+                <li><%= item.name %> - <%= item.quantity %></li>
+            <% }); %>
+        </ul>
+    </div>
+</body>
+</html>
 
