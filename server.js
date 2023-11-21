@@ -1,10 +1,9 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const router = express.Router();
 const Inventory = require('./models/inventory');
-const inventoryRoutes = require('./routes/inventoryRoutes');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const User = require('./models/User');
@@ -32,13 +31,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use('/inventory', inventoryRoutes);
 
 app.use(session({
-  secret: 'Aa123456', // 替换为您自己的秘密
+  secret: 'Aa123456', 
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl:'mongodb+srv://Project:Aa123456@cluster0.wfnlwpv.mongodb.net/'})
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://Project:Aa123456@cluster0.wfnlwpv.mongodb.net/' })
 }));
 
 // 设置 EJS 为视图引擎
@@ -54,7 +52,7 @@ app.get('/login', (req, res) => {
 });
 
 // 库存列表路由
-router.get('/inventory', async (req, res) => {
+app.get('/inventory', async (req, res) => {
   try {
     const inventoryItems = await Inventory.find(); // 查询数据库中的所有库存项
     res.render('inventory', { inventoryItems: inventoryItems });
@@ -78,8 +76,15 @@ app.post('/inventory/add', async (req, res) => {
 
     // 保存到数据库
     await newItem.save();
+    // 添加成功后重定向到库存列表页面
+    res.redirect('/inventory');
+  } catch (error) {
+    // 错误处理
+    res.status(500).send("Error occurred while adding the item.");
+  }
+});
 
-    //创建库存项
+//创建库存项
 app.post('/api/inventory', async (req, res) => {
   try {
     const newItem = new InventoryItem(req.body);
@@ -126,14 +131,20 @@ app.delete('/api/inventory/:id', async (req, res) => {
   }
 });
 
-    // 添加成功后重定向到库存列表页面
-    res.redirect('/inventory');
-  } catch (error) {
-    // 错误处理
-    res.status(500).send("Error occurred while adding the item.");
-  }
+// 定义一个简单的路由
+app.get('/', (req, res) => {
+  res.render('home', {
+    pageTitle: 'Inventory Management System',
+    message: 'Welcome to our system!',
+    navigation: [
+      { text: 'Home', link: '/' },
+      { text: 'Login', link: '/login' },
+      { text: 'Register', link: '/register' },
+      { text: 'View Inventory', link: '/inventory' },
+      { text: 'Add Inventory Item', link: '/inventory/add' },
+    ],
+  });
 });
-
 
 // 注册路由
 app.post('/register', async (req, res) => {
@@ -171,21 +182,9 @@ app.get('/logout', (req, res) => {
 });
 
 // 错误处理
-app.use((req, res, next) => {
+app.use((err, req, res, next) => {
+  console.error(err.stack)
   res.status(404).send("Sorry, that page does not exist!");
-});
-
-// 定义一个简单的路由
-app.get('/', (req, res) => {
-  res.render('home', {
-    pageTitle: 'Inventory Management System',
-    message: 'Welcome to our system!',
-    navigation: [
-      { text: 'Home', link: '/' },
-      { text: 'View Inventory', link: '/inventory' },
-      { text: 'Add Inventory Item', link: '/inventory/add' },
-    ],
-  });
 });
 
 module.exports = router;
@@ -195,4 +194,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
