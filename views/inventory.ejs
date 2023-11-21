@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Inventory List</title>
     <style>
@@ -37,15 +38,18 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Inventory List</h1>
         <ul>
             <% inventoryItems.forEach(function(item) { %>
-                <li><%= item.name %> - <%= item.quantity %></li>
-            <% }); %>
+                <li>
+                    <%= item.name %> - <%= item.quantity %>
+                </li>
+                <% }); %>
         </ul>
     </div>
 </body>
-</html>
 
+</html>
