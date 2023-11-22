@@ -2,62 +2,82 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <title>Inventory List</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
-        input[type="text"],
-        input[type="password"] {
-            width: 160px;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
+        
+
+        ul {
+            list-style: none;
+            padding: 0;
         }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        a {
-            display: block;
-            margin-top: 20px;
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 10px 10px 10px 40px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Login</h1>
-        <form action="/login" method="post">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div>
-                <button type="submit">Login</button>
-            </div>
+        <h1>Inventory List</h1>
+        <form action="/inventory" method="get">
+            <label><strong>Name:</strong></label>
+            <input style="width: 60px;" type="text" name="name" value="<%= query.name %>">
+            <label><strong>Quantity greater than:</strong></label>
+            <input style="width: 60px;" type="number" name="gt" value="<%= query.gt %>">
+            <button type="submit">Search</button>
         </form>
-        <a href="/register">Don't have an account? Register</a>
+        <ul>
+            <% inventoryItems.forEach(function(item) { %>
+                <li>
+                        <label><strong>Name:</strong></label>
+                        <span><%= item.name %></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="quantity"><strong>Quantity:</strong></label>
+                        <input style="width: 60px;" type="number" id="<%= item.name %>" name="quantity" value="<%= item.quantity %>">
+                        <button type="button" onclick="updateItem(<%= item.name %>)">Update</button>
+                        <button type="button" onclick="deleteItem(<%= item.name %>)">Delete</button>
+                </li>
+                <% }); %>
+        </ul>
+        <form><a href="/inventory/add">Add New</a></form>
+
     </div>
+    <script>
+        async function updateItem(itemId) {
+            console.log(itemId)
+            const quantity = document.getElementById(itemId).value;
+            const response = await fetch(`/api/inventory/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: String(itemId), quantity: Number(quantity) })
+            });
+
+            const result = await response.json();
+            console.log(result);
+            alert("Update success")
+        }
+
+        async function deleteItem(itemId) {
+            const response = await fetch(`/api/inventory/${itemId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const result = await response.json();
+            console.log(result);
+            alert("Delete success")
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>
