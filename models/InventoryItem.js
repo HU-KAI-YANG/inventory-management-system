@@ -15,3 +15,4 @@ const inventoryItemSchema = new mongoose.Schema({
 const InventoryItem = mongoose.model('InventoryItem', inventoryItemSchema);
 
 module.exports = InventoryItem;
+
