@@ -3,26 +3,9 @@
 
 <head>
     <title>Inventory List</title>
+    <link rel="stylesheet" href="/css/style.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-
-        h1 {
-            background: #50b3a2;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
+        
 
         ul {
             list-style: none;
@@ -32,7 +15,7 @@
         li {
             background: #fff;
             margin: 5px 0;
-            padding: 10px;
+            padding: 10px 10px 10px 40px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -42,14 +25,59 @@
 <body>
     <div class="container">
         <h1>Inventory List</h1>
+        <form action="/inventory" method="get">
+            <label><strong>Name:</strong></label>
+            <input style="width: 60px;" type="text" name="name" value="<%= query.name %>">
+            <label><strong>Quantity greater than:</strong></label>
+            <input style="width: 60px;" type="number" name="gt" value="<%= query.gt %>">
+            <button type="submit">Search</button>
+        </form>
         <ul>
             <% inventoryItems.forEach(function(item) { %>
                 <li>
-                    <%= item.name %> - <%= item.quantity %>
+                        <label><strong>Name:</strong></label>
+                        <span><%= item.name %></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="quantity"><strong>Quantity:</strong></label>
+                        <input style="width: 60px;" type="number" id="<%= item.name %>" name="quantity" value="<%= item.quantity %>">
+                        <button type="button" onclick="updateItem(<%= item.name %>)">Update</button>
+                        <button type="button" onclick="deleteItem(<%= item.name %>)">Delete</button>
                 </li>
                 <% }); %>
         </ul>
+        <form><a href="/inventory/add">Add New</a></form>
+
     </div>
+    <script>
+        async function updateItem(itemId) {
+            console.log(itemId)
+            const quantity = document.getElementById(itemId).value;
+            const response = await fetch(`/api/inventory/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: String(itemId), quantity: Number(quantity) })
+            });
+
+            const result = await response.json();
+            console.log(result);
+            alert("Update success")
+        }
+
+        async function deleteItem(itemId) {
+            const response = await fetch(`/api/inventory/${itemId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const result = await response.json();
+            console.log(result);
+            alert("Delete success")
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>
