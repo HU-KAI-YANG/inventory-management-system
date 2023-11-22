@@ -3,20 +3,27 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  color: #333;
-  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-  width: 80%;
+  width: 60%;
   margin: auto;
   overflow: hidden;
-  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  background: #50b3a2;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
 }
 
 header {
-  background: #333;
-  color: #fff;
+  background: #50b3a2;
+  color: white;
   padding-top: 30px;
   min-height: 70px;
   border-bottom: #e8491d 3px solid;
@@ -49,15 +56,16 @@ form {
   margin-top: 20px;
 }
 
-input[type="text"], input[type="password"], input[type="number"] {
-  width: 100%;
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+  width: 90%;
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #ddd;
 }
 
 button {
-  width: 100%;
   background: #333;
   color: #fff;
   padding: 10px;
@@ -73,4 +81,22 @@ footer {
   color: #fff;
   text-align: center;
   padding: 10px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #50b3a2;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }
