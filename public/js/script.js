@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // 动态显示和隐藏内容
   const showMoreButton = document.getElementById('showMoreButton');
   const extraContent = document.getElementById('extraContent');
 
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // 动画效果
   const animatedElement = document.getElementById('animatedElement');
   if (animatedElement) {
     animatedElement.addEventListener('mouseover', function() {
@@ -41,3 +43,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
